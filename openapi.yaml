@@ -1,0 +1,99 @@
+---
+openapi: 3.0.2
+info:
+  title: School
+  description: Ireland English school API
+  version: 1.0.0
+paths:
+  /schools:
+    summary: Path used to manage the list of Schools.
+    description: The REST endpoint/path used to list and create zero or more `School`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      summary: List All Schools
+      description: Gets a list of all `School` entities.
+      operationId: getSchools
+      responses:
+        200:
+          description: Successful response - returns an array of `School` entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+    post:
+      summary: Create a School
+      description: Creates a new instance of a `School`.
+      operationId: createSchool
+      requestBody:
+        description: A new `School` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+  /schools/{schoolId}:
+    summary: Path used to manage a single School.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `School`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      summary: Get a School
+      description: Gets the details of a single instance of a `School`.
+      operationId: getSchool
+      responses:
+        200:
+          description: Successful response - returns a single `School`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+    put:
+      summary: Update a School
+      description: Updates an existing `School`.
+      operationId: updateSchool
+      requestBody:
+        description: Updated `School` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+    delete:
+      summary: Delete a School
+      description: Deletes an existing `School`.
+      operationId: deleteSchool
+      responses:
+        204:
+          description: Successful response.
+    parameters:
+    - name: schoolId
+      in: path
+      description: A unique identifier for a `School`.
+      required: true
+      schema:
+        type: string
+components:
+  schemas:
+    School:
+      title: Root Type for School
+      description: The root of the School type's schema.
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      example: |-
+        {
+            "name": "Abbey English Scool",
+            "address": "41 O'connel Street"
+        }
